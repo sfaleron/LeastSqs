@@ -14,6 +14,11 @@
 # http://mathworld.wolfram.com/LeastSquaresFitting.html
 # numpy book, chapter 10, section 1
 
+# The page https://mathworld.wolfram.com/CorrelationCoefficient.html seems to have an error. Eqs 52 and 54 cannot
+# both be correct. 54 seems to be the mistaken one. It doesn't seem to have an impact on subsequent expressions,
+# which could explain why it hasn't been caught/corrected.
+
+
 try:
     from .base import leastsqs
 except ImportError:
