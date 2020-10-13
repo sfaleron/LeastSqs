@@ -33,7 +33,7 @@ rng = default_rng(args.seed)
 xdata = arange(N)
 ydata = xdata*sclIn+offIn + noiseamp*(rng.random(N)-0.5)
 
-sclOut, offOut, (rsq, ssr) = leastsqs(xdata, ydata)
+(sclOut, offOut), (rsq, ssr) = leastsqs(xdata, ydata)
 
 print('coefficients out:', [sclOut, offOut])
 print('rsq,ssr:', rsq, ssr)

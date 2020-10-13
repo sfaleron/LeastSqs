@@ -1,5 +1,8 @@
 
 def leastsqs(xdata, ydata):
+    xdata = tuple(xdata)
+    ydata = tuple(ydata)
+
     xsize = len(xdata)
     ysize = len(ydata)
 
@@ -24,4 +27,4 @@ def leastsqs(xdata, ydata):
     rsq = ssxy*ssxy/ssxx/ssyy
     ssr = ssyy-slope*ssxy
 
-    return slope, offset, (rsq, ssr)
+    return (slope, offset), (rsq, ssr)

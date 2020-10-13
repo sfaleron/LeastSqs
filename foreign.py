@@ -1,20 +1,20 @@
 
-try:
-    from scipy.linalg import lstsq
-except ImportError:
-    from numpy.linalg import lstsq
+from numpy import vstack, ones, fromiter
 
-from numpy import array, vstack, ones
+def _leastsqs(xdata, ydata, _foreign_implementation):
+    xdata = fromiter(xdata, float)
+    ydata = fromiter(ydata, float)
 
-def leastsqs(xdata, ydata):
-    ydata = array(ydata)
+    if xdata.size != ydata.size:
+        raise ValueError('xdata and ydata must be the same length.')
+
     size = ydata.size
 
     if size<2:
         raise ValueError('A minimum of two points is necessary.')
 
     data = vstack([xdata, ones(size)]).T
-    messy = lstsq(data, ydata, None)
+    messy = _foreign_implementation(data, ydata, None)
 
     if size>2:
         ssyy = (ydata**2).sum() - size*ydata.mean()**2
@@ -27,4 +27,4 @@ def leastsqs(xdata, ydata):
 
     slope, offset = messy[0]
 
-    return slope, offset, (rsq, ssr)
+    return (slope, offset), (rsq, ssr)
