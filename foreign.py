@@ -25,6 +25,6 @@ def _leastsqs(xdata, ydata, _foreign_implementation):
     else:
         rsq, ssr = 1.0, 0.0
 
-    slope, offset = messy[0]
+    a, b = messy[0]
 
-    return (slope, offset), (rsq, ssr)
+    return (a, b), (rsq, ssr)

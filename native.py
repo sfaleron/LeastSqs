@@ -21,10 +21,10 @@ def leastsqs(xdata, ydata):
 
     ssxy = sum([i*j for i,j in zip(xdata,ydata)]) - size*xmean*ymean
 
-    slope  = ssxy/ssxx
-    offset = ymean-slope*xmean
+    b = ssxy/ssxx
+    a = ymean-b*xmean
 
     rsq = ssxy*ssxy/ssxx/ssyy
-    ssr = ssyy-slope*ssxy
+    ssr = ssyy-b*ssxy
 
-    return (slope, offset), (rsq, ssr)
+    return (a, b), (rsq, ssr)
