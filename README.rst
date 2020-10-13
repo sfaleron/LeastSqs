@@ -9,8 +9,8 @@ This package provides a simple interface to these libraries for the basic case a
 See Also
 ========
 
-`"Least Squares Fitting" on Wolfram MathWorld <https://mathworld.wolfram.com/LeastSquaresFitting.html>`_
-`"Correlation Coefficient" on Wolfram MathWorld <https://mathworld.wolfram.com/CorrelationCoefficient.html>`_
+| `"Least Squares Fitting" at Wolfram MathWorld <https://mathworld.wolfram.com/LeastSquaresFitting.html>`_
+| `"Correlation Coefficient" at Wolfram MathWorld <https://mathworld.wolfram.com/CorrelationCoefficient.html>`_
 
 .. _NumPy: https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html#numpy.linalg.lstsq
 .. _SciPy: https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lstsq.html#scipy.linalg.lstsq
