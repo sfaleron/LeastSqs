@@ -2,7 +2,7 @@
 Least Squares Fit
 =================
 
-NumPy_ and SciPy_ have support for this algorithm, but using it is an ordeal for the basic cases. The output also does not return the commonly used "correlation coefficient".
+NumPy_ and SciPy_ have support for this algorithm, but using it is an ordeal for the basic cases. Also, the output does not include the commonly used "correlation coefficient".
 
 This package provides a simple interface to these libraries for the basic case and provides a native implementation, so there are no required dependencies.
 
