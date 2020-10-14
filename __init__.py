@@ -16,5 +16,4 @@
 # both be correct. 54 seems to be the mistaken one. It doesn't seem to have an impact on subsequent expressions,
 # which could explain why it hasn't been caught/corrected.
 
-
 from .core import Implementation, use, leastsqs

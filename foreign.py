@@ -1,6 +1,11 @@
 
 from numpy import vstack, ones, fromiter
 
+from collections import namedtuple
+
+ForeignResult = namedtuple('ForeignResult', 'mb resids rank sings')
+
+
 def _leastsqs(xdata, ydata, _foreign_implementation):
     xdata = fromiter(xdata, float)
     ydata = fromiter(ydata, float)
@@ -14,17 +19,20 @@ def _leastsqs(xdata, ydata, _foreign_implementation):
         raise ValueError('A minimum of two points is necessary.')
 
     data = vstack([xdata, ones(size)]).T
-    messy = _foreign_implementation(data, ydata, None)
+    result = ForeignResult(*_foreign_implementation(data, ydata, None))
+
+    if result.rank == 1:
+        raise ValueError('Input is underdetermined.')
 
     if size>2:
         ssyy = (ydata**2).sum() - size*ydata.mean()**2
-        ssr = messy[1][0]
+        ssr = result.resids[0]
 
         # hopefully more numerically stable than 1.0-ssr/ssyy
         rsq = (ssyy-ssr)/ssyy
     else:
         rsq, ssr = 1.0, 0.0
 
-    a, b = messy[0]
+    b, a = result.mb
 
     return (a, b), (rsq, ssr)

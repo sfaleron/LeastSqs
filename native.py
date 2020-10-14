@@ -21,10 +21,13 @@ def leastsqs(xdata, ydata):
 
     ssxy = sum([i*j for i,j in zip(xdata,ydata)]) - size*xmean*ymean
 
+    if ssxx == 0.0:
+        raise ValueError('Input is underdetermined.')
+
     b = ssxy/ssxx
     a = ymean-b*xmean
 
     rsq = ssxy*ssxy/ssxx/ssyy
-    ssr = ssyy-b*ssxy
+    ssr = ssyy-a*ssxy
 
     return (a, b), (rsq, ssr)
