@@ -6,7 +6,7 @@
 # Supports vector/SVG and bitmap/PNG output, but normally only SVG is enabled.
 
 SVG = True
-PNG = True
+PNG = False
 
 from leastsqs import leastsqs
 from numpy import arange, tan, pi
@@ -16,7 +16,7 @@ PlotSpec = namedtuple('PlotSpec', 'x y yfit')
 
 STEPS = 100
 
-tdata = arange(STEPS)/STEPS*2-1
+tdata = arange(STEPS+1)/STEPS*2-1
 
 specs = []
 

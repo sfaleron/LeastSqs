@@ -62,25 +62,25 @@ To deterministically and with minimal arbitrariness generate sample data, we use
   >>> from leastsqs import leastsqs
 
   >>> xmin, xmax, steps = -3*pi/8, 3*pi/8, 100
-  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
+  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps+1)]
   >>> ydata=map(tan, xdata)
 
   >>> leastsqs(xdata,ydata)
-  ((-0.006716221015448294, 1.479157572162902), (0.9639490882609485, 3.7851982661489854))
+  ((-5.523565994647257e-18, 1.4959249411590796), (0.9618751286358497, 4.227385657971317))
 
   >>> xmin, xmax = -pi/4, pi/4
-  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
+  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps+1)]
   >>> ydata=map(tan, xdata)
 
   >>> leastsqs(xdata,ydata)
-  ((-0.0009640493561273813, 1.1504929684053804), (0.9959372422450656, 0.11101252195673025))
+  ((9.6662404906327e-18, 1.1541031618268436), (0.9957605179443147, 0.12012328883843057))
 
   >>> xmin, xmax = -pi/8, pi/8
-  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
+  >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps+1)]
   >>> ydata=map(tan, xdata)
 
   >>> leastsqs(xdata,ydata)
-  ((-8.837989025825217e-05, 1.0322804209108654), (0.9998037995453566, 0.0010748198836298764))
+  ((1.0615603395962697e-17, 1.0329423548593133), (0.9997962667107732, 0.0011513907061941977))
 
 .. image:: sample_ses.svg
 
