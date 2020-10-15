@@ -49,7 +49,7 @@ Invoking
 
   (a, b), (rsq, ssr) = leastsqs(xdata, ydata)
 
-- ``xdata``, ``ydata`` are finite iterables of equal length, which can be no less than two. Any type that reasonably resolves to float should be fine, such as ``Decimals`` or ``Fractions``.
+- ``xdata``, ``ydata`` are finite iterables of equal length, which may be no less than two. Any type that reasonably resolves to float should be fine, such as Decimals_ or Fractions_.
 
 - ``(a, b)`` are the coefficients to a degree-one polynomial representing the fitted line, with equation ``y = a + b * x``.
 
@@ -95,3 +95,6 @@ See Also
 
 .. _NumPy: https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html#numpy.linalg.lstsq
 .. _SciPy: https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lstsq.html#scipy.linalg.lstsq
+
+.. _Decimals: https://docs.python.org/3/library/decimal.html
+.. _Fractions: https://docs.python.org/3/library/fractions.html
