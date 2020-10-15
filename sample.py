@@ -28,7 +28,8 @@ for i in (3,2,1):
 
 from matplotlib.figure import Figure, SubplotParams
 
-fig = Figure(figsize=(9,3), subplotpars=SubplotParams(left=.02, right=.98, wspace=.05, bottom=.05, top=.95))
+fig = Figure(figsize=(9,3), subplotpars=SubplotParams(
+    left=.02, right=.98, wspace=.05, bottom=.05, top=.95))
 
 axes = [fig.add_subplot(1,3,i, xticks=[], yticks=[]) for i in (1,2,3)]
 
