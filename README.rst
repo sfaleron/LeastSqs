@@ -36,7 +36,7 @@ Equivalently:
 
   set_backend('NumPy')
 
-The backend can be (re)set as often as desired. Note that the ``leastsqs()`` binding does not change; future calls will observe a successful change. ``ImportError`` is raised if the backend is not available.
+The backend can be (re)set as often as desired. Note that the ``leastsqs()`` binding does not change; calls to existing references will observe a successful change. ``ImportError`` is raised if the backend is not available.
 
 ----
 
