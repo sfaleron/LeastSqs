@@ -3,7 +3,7 @@ from numpy import vstack, ones, fromiter
 
 from collections import namedtuple
 
-ForeignResult = namedtuple('ForeignResult', 'mb resids rank sings')
+ForeignResult = namedtuple('ForeignResult', 'coeffs resids rank sings')
 
 
 def _leastsqs(xdata, ydata, _foreign_implementation):
@@ -33,6 +33,6 @@ def _leastsqs(xdata, ydata, _foreign_implementation):
     else:
         rsq, ssr = 1.0, 0.0
 
-    b, a = result.mb
+    b, a = result.coeffs
 
     return (a, b), (rsq, ssr)

@@ -2,7 +2,7 @@
 Introduction
 ============
 
-To fit a line to data in two dimensions is a simple case of a very general problem. NumPy_ and SciPy_ have algorithms that are suited to these general cases, but using them is awkward in this limited case. Also, the returned results do not include the commonly used "correlation coefficient".
+To fit a line to data in two dimensions is a simple case of a very general problem. NumPy_ and SciPy_ have algorithms that are suited to these general cases, but using them is awkward here. Also, the returned results do not include the commonly used "correlation coefficient".
 
 This package provides a simple interface to these libraries for this usage and also provides a native implementation, so there are no required dependencies.
 
