@@ -49,8 +49,6 @@ Invoking
 
   (a, b), (rsq, ssr) = leastsqs(xdata, ydata)
 
-Where:
-
 - ``xdata``, ``ydata`` are finite iterables of equal length, which can be no less than two. Any type that reasonably resolves to float should be fine, such as ``Decimals`` or ``Fractions``.
 
 - ``(a, b)`` are the coefficients to a degree-one polynomial representing the fitted line, with equation ``y = a + b * x``.
