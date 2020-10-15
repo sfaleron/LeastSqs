@@ -33,7 +33,7 @@ fig = Figure(figsize=(9,3), subplotpars=SubplotParams(left=.02, right=.98, wspac
 axes = [fig.add_subplot(1,3,i, xticks=[], yticks=[]) for i in (1,2,3)]
 
 for ax, spec in zip(axes, specs):
-    ax.plot(spec.x, spec.y, spec.x, spec.yfit, 'g')
+    ax.plot(spec.x, spec.y, spec.x, spec.yfit, 'g', linewidth=1.0)
 
 import matplotlib
 

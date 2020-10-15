@@ -2,8 +2,7 @@
 Introduction
 ============
 
-
-NumPy_ and SciPy_ have algorithms that solve generalizations of this problem, but using them is an ordeal for the simple case of fitting a line to a collection of points on the plane. Also, the returned results do not include the commonly used "correlation coefficient".
+To fit a line to data in two dimensions is a simple case of solving a system of equations. NumPy_ and SciPy_ have algorithms that solve generalizations of this problem, but using them is an ordeal in this limited case. Also, the returned results do not include the commonly used "correlation coefficient".
 
 This package provides a simple interface to these libraries for this usage and also provides a native implementation, so there are no required dependencies.
 
@@ -36,7 +35,7 @@ Equivalently:
 
   set_backend('NumPy')
 
-The backend can be (re)set as often as desired. Note that the ``leastsqs()`` binding does not change; calls to existing references will observe a successful change. ``ImportError`` is raised if the backend is not available.
+The backend can be (re)set as often as desired. Note that the ``leastsqs()`` binding does not change; calls to existing references will observe a successful change.
 
 ----
 
