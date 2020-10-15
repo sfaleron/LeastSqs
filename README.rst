@@ -43,8 +43,6 @@ The backend can be (re)set as often as desired. Note that the ``leastsqs()`` bin
 Invoking
 --------
 
-**Call Signature**
-
 ::
 
   (a, b), (rsq, ssr) = leastsqs(xdata, ydata)
@@ -59,17 +57,17 @@ Invoking
 
 **Sample Session**
 
-To deterministically and with minimal arbitrariness generate sample data, we use the ``tan()`` function to represent a "noisy" line. Three iterations are presented, zooming progressively out to less-fitting ranges. ::
+To deterministically and with minimal arbitrariness generate sample data, we use the ``tan()`` function to represent a "noisy" line. Three iterations are presented, zooming progressively in to better-fitting ranges. ::
 
   >>> from math import tan,pi
   >>> from leastsqs import leastsqs
 
-  >>> xmin, xmax, steps = -pi/8, pi/8, 100
+  >>> xmin, xmax, steps = -3*pi/8, 3*pi/8, 100
   >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
   >>> ydata=map(tan, xdata)
 
   >>> leastsqs(xdata,ydata)
-  ((-8.837989025825217e-05, 1.0322804209108654), (0.9998037995453566, 0.0010748198836298764))
+  ((-0.006716221015448294, 1.479157572162902), (0.9639490882609485, 3.7851982661489854))
 
   >>> xmin, xmax = -pi/4, pi/4
   >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
@@ -78,12 +76,14 @@ To deterministically and with minimal arbitrariness generate sample data, we use
   >>> leastsqs(xdata,ydata)
   ((-0.0009640493561273813, 1.1504929684053804), (0.9959372422450656, 0.11101252195673025))
 
-  >>> xmin, xmax = -3*pi/8, 3*pi/8
+  >>> xmin, xmax = -pi/8, pi/8
   >>> xdata=[i/steps*(xmax-xmin)+xmin for i in range(steps)]
   >>> ydata=map(tan, xdata)
 
   >>> leastsqs(xdata,ydata)
-  ((-0.006716221015448294, 1.479157572162902), (0.9639490882609485, 3.7851982661489854))
+  ((-8.837989025825217e-05, 1.0322804209108654), (0.9998037995453566, 0.0010748198836298764))
+
+.. image:: sample_ses.svg
 
 ----
 
