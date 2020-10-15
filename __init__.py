@@ -12,8 +12,12 @@
 # http://mathworld.wolfram.com/LeastSquaresFitting.html
 # numpy book, chapter 10, section 1
 
+# The discussion in the example section of scipy's documentation is much easier to follow, and applies to both!
+# https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lstsq.html#scipy.linalg.lstsq
+
 # The page https://mathworld.wolfram.com/CorrelationCoefficient.html seems to have an error. Eqs 52 and 54 cannot
 # both be correct. 54 seems to be the mistaken one. It doesn't seem to have an impact on subsequent expressions,
 # which could explain why it hasn't been caught/corrected.
 
-from .core import Implementation, use, leastsqs
+
+from .core import Backend, set_backend, leastsqs

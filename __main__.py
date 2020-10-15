@@ -1,8 +1,5 @@
-
-from numpy.random import default_rng
-from numpy import arange
-
 import argparse
+from random import Random
 
 from . import leastsqs
 
@@ -15,7 +12,7 @@ psr.add_argument('coefficients', type=float, nargs=2)
 
 args = psr.parse_args()
 N = args.steps
-sclIn,offIn = args.coefficients
+offIn,sclIn = args.coefficients
 
 if args.noise_rel is None:
     if args.noise_abs is None:
@@ -28,25 +25,28 @@ else:
 print('noise:', noiseamp)
 print('coefficients in: ', args.coefficients)
 
-rng = default_rng(args.seed)
+rng = Random(args.seed)
 
-xdata = arange(N)
-ydata = xdata*sclIn+offIn + noiseamp*(rng.random(N)-0.5)
+xdata = range(N)
+ydata = [sclIn*t+offIn + noiseamp*(rng.random()-0.5) for t in xdata]
 
 (offOut, sclOut), (rsq, ssr) = leastsqs(xdata, ydata)
 
-print('coefficients out:', [sclOut, offOut])
+print('coefficients out:', [offOut, sclOut])
 print('rsq,ssr:', rsq, ssr)
 
-ssyy = (ydata**2).sum() - N*ydata.mean()**2
-ssxx = (xdata**2).sum() - N*xdata.mean()**2
+xmean = sum(xdata) / N
+ymean = sum(ydata) / N
 
-ssxy = (xdata*ydata).sum() - N*xdata.mean()*ydata.mean()
+ssxx = sum([i**2 for i in xdata]) - N*xmean**2
+ssyy = sum([i**2 for i in ydata]) - N*ymean**2
+
+ssxy = sum([i*j for i,j in zip(xdata, ydata)]) - N*xmean*ymean
 
 sclOut = ssxy/ssxx
 rsq = ssxy*ssxy/ssxx/ssyy
 ssr = ssyy-sclOut*ssxy
-offOut = ydata.mean() - sclOut*xdata.mean()
+offOut = ymean - sclOut*xmean
 
-print('coefficients out:', [sclOut, offOut])
+print('coefficients out:', [offOut, sclOut])
 print('rsq,ssr:', rsq, ssr)

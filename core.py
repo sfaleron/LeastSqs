@@ -1,46 +1,48 @@
 
+_backend = [None]
+
+
 from enum import Enum
 
-Implementation = Enum('Implementation', 'SCIPY NUMPY NATIVE')
+Backend = Enum('Backend', 'SCIPY NUMPY NATIVE')
 
-_implementation = [None]
 
-def use(choice):
+def set_backend(choice):
     resolved_choice = None
-    if isinstance(choice, Implementation):
+    if isinstance(choice, Backend):
         resolved_choice = choice
     else:
         if isinstance(choice, str):
             choice = choice.upper()
-            if hasattr(Implementation, choice):
-                choice = getattr(Implementation, choice)
-                if isinstance(choice, Implementation):
+            if hasattr(Backend, choice):
+                choice = getattr(Backend, choice)
+                if isinstance(choice, Backend):
                     resolved_choice = choice
 
     if resolved_choice is None:
         raise ValueError(
-            'Choice must be a member of the Implementation enumerated type: {}; '
+            'Choice must be a member of the Backend enumerated type: {}; '
             'or a case-insensitive string matching a member name.'.format(
-                ','.join([i.name for i in Implementation])))
+                ','.join([i.name for i in Backend])))
     else:
-        if choice is Implementation.SCIPY:
+        if choice is Backend.SCIPY:
             from .scipy_ import leastsqs
-        if choice is Implementation.NUMPY:
+        if choice is Backend.NUMPY:
             from .numpy_ import leastsqs
-        if choice is Implementation.NATIVE:
+        if choice is Backend.NATIVE:
             from .native import leastsqs
 
-        _implementation[0] = leastsqs
+        _backend[0] = leastsqs
 
 
 def leastsqs(xdata, ydata):
-    if _implementation[0] is None:
+    if _backend[0] is None:
         try:
-            use(Implementation.SCIPY)
+            set_backend(Backend.SCIPY)
         except ImportError:
             try:
-                use(Implementation.NUMPY)
+                set_backend(Backend.NUMPY)
             except ImportError:
-                use(Implementation.NATIVE)
+                set_backend(Backend.NATIVE)
 
-    return _implementation[0](xdata, ydata)
+    return _backend[0](xdata, ydata)
