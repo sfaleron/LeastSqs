@@ -56,7 +56,11 @@ Invoking
 
 **Sample Session**
 
-To deterministically and with minimal arbitrariness generate sample data, we use the ``tan()`` function to represent a "noisy" line. Three iterations are presented, zooming progressively in to better-fitting ranges. ::
+To deterministically and with minimal arbitrariness generate sample data, we use the *tan()* function to represent a "noisy" line.
+
+As *xmax*-*xmin* approaches zero, the fitted line will approach the tangent, which has unit slope at the origin.
+
+Three iterations are presented, zooming progressively in to better-fitting ranges. ::
 
   >>> from math import tan,pi
   >>> from leastsqs import leastsqs
@@ -82,7 +86,7 @@ To deterministically and with minimal arbitrariness generate sample data, we use
   >>> leastsqs(xdata,ydata)
   ((1.0615603395962697e-17, 1.0329423548593133), (0.9997962667107732, 0.0011513907061941977))
 
-.. image:: sample_ses.svg
+.. image:: sample_tan.svg
 
 ----
 
