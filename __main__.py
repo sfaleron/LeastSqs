@@ -44,7 +44,8 @@ def parse_args(argsIn=None):
     psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of template line y = a+b*x.')
     psr.add_argument('rsq', type=_validate_rsq, help='Target r-squared')
     psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points in data to fit. Defaults to 100.')
-    psr.add_argument('--seed', type=int, help='RNG seed')
+    psr.add_argument('--seed', help='RNG seed. If convertable to integer, it is. Note that the absolute value is taken '
+                                    'of negative integers, so n and -n are the same seed.')
     psr.add_argument('--backend', type=_validate_backend,
                      help='Case-insensitive name of a member of the Backend enumerated type: '
                           '{}.'.format(','.join([i.name for i in Backend])))
@@ -76,7 +77,15 @@ def echo_args(args):
 
 def decode_args(args):
     a,b = args.coefficients
-    return dict(a=a, b=b, rsq=args.rsq, N=args.steps, seed=args.seed)
+
+    seed = args.seed
+    if seed is not None:
+        try:
+            seed = int(seed)
+        except ValueError:
+            pass
+
+    return dict(a=a, b=b, rsq=args.rsq, N=args.steps, seed=seed)
 
 def main():
     args = parse_args()
