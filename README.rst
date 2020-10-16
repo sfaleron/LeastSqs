@@ -109,8 +109,7 @@ Support for Python's ``-m`` run-as-script switch is included. ::
     --seed SEED           RNG seed. If convertable to integer, it is. Note that
                           the absolute value is taken of negative integers, so n
                           and -n are the same seed.
-    --backend BACKEND     Case-insensitive name of a member of the Backend
-                          enumerated type: SCIPY,NUMPY,NATIVE.
+    --backend BACKEND     Case-insensitive selection from: scipy, numpy, native.
     --outfile OUTFILE, -o OUTFILE
                           Generate plots, and save to this file. Requires
                           Matplotlib. PNG and SVG formats are supported, and
