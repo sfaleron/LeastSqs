@@ -97,7 +97,7 @@ Support for Python's ``-m`` run-as-script switch is included. ::
                      [--quiet]
                      coefficients coefficients rsq [steps]
 
-  Generates noisy data and fits a line to it.
+  Generates noisy data and fits a line to it. A report is printed, and a plot-to-file feature is available.
 
   positional arguments:
     coefficients          Coefficients a,b of template line y = a+b*x.

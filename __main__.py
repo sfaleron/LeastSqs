@@ -40,7 +40,8 @@ def _validate_backend(s):
     raise argparse.ArgumentTypeError('"{}" is not a recognized backend.'.format(s))
 
 def parse_args(argsIn=None):
-    psr = argparse.ArgumentParser(description='Generates noisy data and fits a line to it.')
+    psr = argparse.ArgumentParser(description='Generates noisy data and fits a line to it. A report is '
+                                              'printed, and a plot-to-file feature is available.')
     psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of template line y = a+b*x.')
     psr.add_argument('rsq', type=_validate_rsq, help='Target r-squared')
     psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points generated; defaults to 100.')
