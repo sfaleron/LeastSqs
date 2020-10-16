@@ -88,8 +88,7 @@ Three iterations are presented, zooming progressively in to better-fitting range
 
 .. image:: sample_tan.svg
 
-From The Shell
---------------
+**From The Shell**
 
 Support for Python's ``-m`` run-as-script switch is included. ::
 
