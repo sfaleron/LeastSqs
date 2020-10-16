@@ -46,9 +46,8 @@ def parse_args(argsIn=None):
     psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points generated; defaults to 100.')
     psr.add_argument('--seed', help='RNG seed. If convertable to integer, it is. Note that the absolute value is taken '
                                     'of negative integers, so n and -n are the same seed.')
-    psr.add_argument('--backend', type=_validate_backend,
-                     help='Case-insensitive name of a member of the Backend enumerated type: '
-                          '{}.'.format(','.join([i.name for i in Backend])))
+    psr.add_argument('--backend', type=_validate_backend, help='Case-insensitive selection from: '
+                                                               '{}.'.format(', '.join([i.name.lower() for i in Backend])))
     psr.add_argument('--outfile', '-o', type=_validate_outfile, help='Generate plots, and save to this file. '
                                                                      'Requires Matplotlib. PNG and SVG formats '
                                                                      'are supported, and selected by the file extension.')
