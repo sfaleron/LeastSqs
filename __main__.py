@@ -113,6 +113,46 @@ def main():
     print('Mean:', info.data.mean)
     print('R-squared:', info.rsq)
 
+    if args.outfile:
+        from   matplotlib.figure import Figure, SubplotParams
+        from   matplotlib.path   import Path
+        import matplotlib
+
+        #mrkr = Path([(-.5,-.5), (.5,.5), (-.5,.5), (.5,-.5)],
+        #            [Path.MOVETO, Path.LINETO, Path.MOVETO, Path.LINETO])
+
+
+        fig = Figure(figsize=(6,4.5), subplotpars=SubplotParams(
+            left=0.04, bottom=0.05, right=0.96, top=0.95))
+
+        ax = fig.add_subplot(1,1,1, xticks=[], yticks=[])
+
+        xdata = params['xdata']
+        ydata = params['ydata']
+        yTmpl = params['template'].data
+        yFit  = params['fit'].data
+
+        plots = ax.plot(xdata, ydata, 'k.', xdata, yTmpl, 'b', xdata, yFit, 'g', linewidth=1.0)
+
+        plots[0].set_markersize(1)
+        plots[1].set_alpha(0.5)
+        plots[2].set_alpha(0.5)
+
+        if args.outfile.lower().endswith('.svg'):
+            from matplotlib.backends.backend_svg import FigureCanvas
+            mpl_backend = 'svg'
+            file_mode = 'w'
+
+        else:
+            from matplotlib.backends.backend_agg import FigureCanvas
+            mpl_backend = 'agg'
+            file_mode = 'wb'
+
+        matplotlib.use(mpl_backend)
+        cvs = FigureCanvas(fig)
+
+        with open(args.outfile, file_mode) as f:
+            getattr(cvs, 'print_' + f.name[-3:].lower())(f)
 
 if __name__ == '__main__':
     main()
