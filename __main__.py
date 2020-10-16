@@ -40,10 +40,10 @@ def _validate_backend(s):
     raise argparse.ArgumentTypeError('"{}" is not a recognized backend.'.format(s))
 
 def parse_args(argsIn=None):
-    psr = argparse.ArgumentParser()
+    psr = argparse.ArgumentParser(description='Generates noisy data and fits a line to it.')
     psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of template line y = a+b*x.')
     psr.add_argument('rsq', type=_validate_rsq, help='Target r-squared')
-    psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points in data to fit. Defaults to 100.')
+    psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points generated; defaults to 100.')
     psr.add_argument('--seed', help='RNG seed. If convertable to integer, it is. Note that the absolute value is taken '
                                     'of negative integers, so n and -n are the same seed.')
     psr.add_argument('--backend', type=_validate_backend,

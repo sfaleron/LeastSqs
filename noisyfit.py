@@ -27,8 +27,10 @@ def noisy_fit(a, b, rsq, N, rng=None, seed=None):
 
     yTmpl = Data([a+b*t for t in xdata])
 
-    # variance of the ydata is the sum of the variances of the template ydata and of the noise.
+    # variance of the mixed ydata is the sum of the variances of the template ydata and of the noise.
     # the variance of the noise is width^2/12.
+    # variance of the ymixed data is a tricky function of the input parameters that follows straightforwardly enough
+    # from a few of the equations at https://mathworld.wolfram.com/CorrelationCoefficient.html.
 
     noise_width = (12*(b*b*xdata.ss/rsq/N - yTmpl.var))**.5
 

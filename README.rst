@@ -88,6 +88,36 @@ Three iterations are presented, zooming progressively in to better-fitting range
 
 .. image:: sample_tan.svg
 
+From The Shell
+--------------
+
+Support for Python's ``-m`` run-as-script switch is included. ::
+
+  $ python -m leastsqs -h
+  usage: __main__.py [-h] [--seed SEED] [--backend BACKEND] [--outfile OUTFILE]
+                     [--quiet]
+                     coefficients coefficients rsq [steps]
+
+  Generates noisy data and fits a line to it.
+
+  positional arguments:
+    coefficients          Coefficients a,b of template line y = a+b*x.
+    rsq                   Target r-squared
+    steps                 Number of points generated; defaults to 100.
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --seed SEED           RNG seed. If convertable to integer, it is. Note that
+                          the absolute value is taken of negative integers, so n
+                          and -n are the same seed.
+    --backend BACKEND     Case-insensitive name of a member of the Backend
+                          enumerated type: SCIPY,NUMPY,NATIVE.
+    --outfile OUTFILE, -o OUTFILE
+                          Generate plots, and save to this file. Requires
+                          Matplotlib. PNG and SVG formats are supported, and
+                          selected by the file extension.
+    --quiet, -q           Suppress the display of parameters.
+
 ----
 
 See Also
