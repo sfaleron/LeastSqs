@@ -20,4 +20,4 @@
 # which could explain why it hasn't been caught/corrected.
 
 
-from .core import Backend, set_backend, leastsqs
+from .core import Backend, set_backend, get_backend, leastsqs

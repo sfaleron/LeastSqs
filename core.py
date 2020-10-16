@@ -1,10 +1,26 @@
 
-_backend = [None]
-
-
 from enum import Enum
 
 Backend = Enum('Backend', 'SCIPY NUMPY NATIVE')
+
+_backend = [None, None]
+
+
+def _set_default_backend():
+    try:
+        set_backend(Backend.SCIPY)
+    except ImportError:
+        try:
+            set_backend(Backend.NUMPY)
+        except ImportError:
+            set_backend(Backend.NATIVE)
+
+
+def get_backend():
+    if _backend[1] is None:
+        _set_default_backend()
+
+    return _backend[1]
 
 
 def set_backend(choice):
@@ -33,16 +49,11 @@ def set_backend(choice):
             from .native import leastsqs
 
         _backend[0] = leastsqs
+        _backend[1] = choice
 
 
 def leastsqs(xdata, ydata):
     if _backend[0] is None:
-        try:
-            set_backend(Backend.SCIPY)
-        except ImportError:
-            try:
-                set_backend(Backend.NUMPY)
-            except ImportError:
-                set_backend(Backend.NATIVE)
+        _set_default_backend()
 
     return _backend[0](xdata, ydata)
