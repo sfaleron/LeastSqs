@@ -115,12 +115,7 @@ def main():
 
     if args.outfile:
         from   matplotlib.figure import Figure, SubplotParams
-        from   matplotlib.path   import Path
         import matplotlib
-
-        #mrkr = Path([(-.5,-.5), (.5,.5), (-.5,.5), (.5,-.5)],
-        #            [Path.MOVETO, Path.LINETO, Path.MOVETO, Path.LINETO])
-
 
         fig = Figure(figsize=(6,4.5), subplotpars=SubplotParams(
             left=0.04, bottom=0.05, right=0.96, top=0.95))
