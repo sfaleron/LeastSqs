@@ -96,13 +96,13 @@ def main():
     print('----------')
     print('Mean:', params['ydata'].mean)
     print('Noise Width:', params['noise_width'])
-    print('R-squared:', params['fit'].rsq)
 
     info = params['fit']
     print('\nFitted Line')
     print('-----------')
     print('Coefficients:', info.a, info.b)
     print('Mean:', info.data.mean)
+    print('R-squared:', info.rsq)
 
 
 if __name__ == '__main__':
