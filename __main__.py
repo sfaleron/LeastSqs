@@ -1,7 +1,9 @@
+
 import argparse
 
 from .noisyfit import noisy_fit
 from         . import set_backend, get_backend, Backend
+
 
 def _validate_outfile(s):
     if s[-4:].lower() not in ('.svg', '.png'):
@@ -39,6 +41,7 @@ def _validate_backend(s):
 
     raise argparse.ArgumentTypeError('"{}" is not a recognized backend.'.format(s))
 
+
 def parse_args(argsIn=None):
     psr = argparse.ArgumentParser(description='Generates noisy data and fits a line to it. A report is '
                                               'printed, and a plot-to-file feature is available.')
@@ -50,9 +53,8 @@ def parse_args(argsIn=None):
     psr.add_argument('--backend', type=_validate_backend, help='Case-insensitive selection from: '
                                                                '{}.'.format(', '.join([i.name.lower() for i in Backend])))
     psr.add_argument('--outfile', '-o', type=_validate_outfile, help='Generate plots, and save to this file. '
-                                                                     'Requires Matplotlib. PNG and SVG formats '
+                                                                     'Requires Matplotlib. SVG and PNG formats '
                                                                      'are supported, and selected by the file extension.')
-    psr.add_argument('--quiet', '-q', action='store_true', help='Suppress the display of parameters.')
 
     args = psr.parse_args(argsIn)
 
@@ -60,19 +62,6 @@ def parse_args(argsIn=None):
         args.backend = get_backend()
 
     return args
-
-
-def echo_args(args):
-    print('Backend:', args.backend)
-    print('Coefficients:', args.coefficients)
-    print('Target r-squared:', args.rsq)
-    print('Number of points:', args.steps)
-    print('RNG seed:', args.seed)
-
-    if args.outfile:
-        print('Output file:', args.outfile)
-
-    print()
 
 
 def decode_args(args):
@@ -87,16 +76,25 @@ def decode_args(args):
 
     return dict(a=a, b=b, rsq=args.rsq, N=args.steps, seed=seed)
 
+
 def main():
     args = parse_args()
 
-    if not args.quiet:
-        echo_args(args)
+    print('Starting Parameters')
+    print('-------------------')
+    print('Backend:', args.backend)
+    print('Coefficients:', args.coefficients)
+    print('Target r-squared:', args.rsq)
+    print('Number of points:', args.steps)
+    print('RNG seed:', args.seed)
+
+    if args.outfile:
+        print('Output file:', args.outfile)
 
     params = noisy_fit(**decode_args(args))
 
     info = params['template']
-    print('Template Line')
+    print('\nTemplate Line')
     print('-------------')
     print('Coefficients:', info.a, info.b)
     print('Mean:', info.data.mean)
@@ -148,6 +146,7 @@ def main():
 
         with open(args.outfile, file_mode) as f:
             getattr(cvs, 'print_' + f.name[-3:].lower())(f)
+
 
 if __name__ == '__main__':
     main()

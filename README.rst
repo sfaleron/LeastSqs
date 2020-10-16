@@ -90,11 +90,10 @@ Three iterations are presented, zooming progressively in to better-fitting range
 
 **From The Shell**
 
-Support for Python's ``-m`` run-as-script switch is included. ::
+Support for Python's ``-m`` run-as-script switch is included::
 
   $ python -m leastsqs -h
   usage: __main__.py [-h] [--seed SEED] [--backend BACKEND] [--outfile OUTFILE]
-                     [--quiet]
                      coefficients coefficients rsq [steps]
 
   Generates noisy data and fits a line to it. A report is printed, and a plot-to-file feature is available.
@@ -112,9 +111,8 @@ Support for Python's ``-m`` run-as-script switch is included. ::
     --backend BACKEND     Case-insensitive selection from: scipy, numpy, native.
     --outfile OUTFILE, -o OUTFILE
                           Generate plots, and save to this file. Requires
-                          Matplotlib. PNG and SVG formats are supported, and
+                          Matplotlib. SVG and PNG formats are supported, and
                           selected by the file extension.
-    --quiet, -q           Suppress the display of parameters.
 
 ----
 
