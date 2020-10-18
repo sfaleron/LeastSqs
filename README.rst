@@ -94,25 +94,31 @@ Support for Python's ``-m`` run-as-script switch is included::
 
   $ python -m leastsqs -h
   usage: __main__.py [-h] [--seed SEED] [--backend BACKEND] [--outfile OUTFILE]
+                     [--density DENSITY]
                      coefficients coefficients rsq [steps]
 
-  Generates noisy data and fits a line to it. A report is printed, and a plot-to-file feature is available.
+  Given a line and target r-squared, noisy data is generated and a line fit to
+  it. A report is printed, and a plot-to-file feature is available.
 
   positional arguments:
-    coefficients          Coefficients a,b of template line y = a+b*x.
+    coefficients          Coefficients a,b of input line y = a+b*x.
     rsq                   Target r-squared
     steps                 Number of points generated; defaults to 100.
 
   optional arguments:
     -h, --help            show this help message and exit
     --seed SEED           RNG seed. If convertable to integer, it is. Note that
-                          the absolute value is taken of negative integers, so n
+                          the absolute value is taken of negative integers; n
                           and -n are the same seed.
     --backend BACKEND     Case-insensitive selection from: scipy, numpy, native.
+
+  plotting:
     --outfile OUTFILE, -o OUTFILE
                           Generate plots, and save to this file. Requires
                           Matplotlib. SVG and PNG formats are supported, and
                           selected by the file extension.
+    --density DENSITY     Noise density. Proportion of randomly distributed
+                          noisy points to plot. Defaults to 1.0.
 
 ----
 

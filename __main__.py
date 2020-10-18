@@ -1,5 +1,6 @@
 
 import argparse
+from random import Random
 
 from .noisyfit import noisy_fit
 from         . import set_backend, get_backend, Backend
@@ -22,10 +23,22 @@ def _validate_rsq(s):
     except ValueError:
         raise argparse.ArgumentTypeError('"{}" is not a valid floating point value.'.format(s))
 
-    if 0.0 < x < 1.0:
+    if 0.0 < x <= 1.0:
         return x
 
-    raise argparse.ArgumentTypeError('r-squared values must be in the open interval (0,1).')
+    raise argparse.ArgumentTypeError('r-squared values must be in the half-open interval (0,1].')
+
+
+def _validate_density(s):
+    try:
+        x = float(s)
+    except ValueError:
+        raise argparse.ArgumentTypeError('"{}" is not a valid floating point value.'.format(s))
+
+    if 0.0 < x <= 1.0:
+        return x
+
+    raise argparse.ArgumentTypeError('Density values must be in the closed interval [0,1].')
 
 
 def _validate_backend(s):
@@ -43,18 +56,22 @@ def _validate_backend(s):
 
 
 def parse_args(argsIn=None):
-    psr = argparse.ArgumentParser(description='Generates noisy data and fits a line to it. A report is '
-                                              'printed, and a plot-to-file feature is available.')
-    psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of template line y = a+b*x.')
+    psr = argparse.ArgumentParser(description='Given a line and target r-squared, noisy data is generated and a line fit to it. '
+                                              'A report is printed, and a plot-to-file feature is available.')
+    psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of input line y = a+b*x.')
     psr.add_argument('rsq', type=_validate_rsq, help='Target r-squared')
     psr.add_argument('steps', type=int, default=100, nargs='?', help='Number of points generated; defaults to 100.')
     psr.add_argument('--seed', help='RNG seed. If convertable to integer, it is. Note that the absolute value is taken '
-                                    'of negative integers, so n and -n are the same seed.')
+                                    'of negative integers; n and -n are the same seed.')
     psr.add_argument('--backend', type=_validate_backend, help='Case-insensitive selection from: '
                                                                '{}.'.format(', '.join([i.name.lower() for i in Backend])))
-    psr.add_argument('--outfile', '-o', type=_validate_outfile, help='Generate plots, and save to this file. '
+
+    grp = psr.add_argument_group('plotting')
+    grp.add_argument('--outfile', '-o', type=_validate_outfile, help='Generate plots, and save to this file. '
                                                                      'Requires Matplotlib. SVG and PNG formats '
                                                                      'are supported, and selected by the file extension.')
+    grp.add_argument('--density', type=_validate_density, default=1.0, help='Noise density. Proportion of randomly '
+                                                                            'distributed noisy points to plot. Defaults to 1.0.')
 
     args = psr.parse_args(argsIn)
 
@@ -74,7 +91,7 @@ def decode_args(args):
         except ValueError:
             pass
 
-    return dict(a=a, b=b, rsq=args.rsq, N=args.steps, seed=seed)
+    return ((a, b, args.rsq, args.steps), dict(rng=Random(seed)))
 
 
 def main():
@@ -90,12 +107,14 @@ def main():
 
     if args.outfile:
         print('Output file:', args.outfile)
+        print('Noise density:', args.density)
 
-    params = noisy_fit(**decode_args(args))
+    pargs, kwargs = decode_args(args)
+    params = noisy_fit(*pargs, **kwargs)
 
-    info = params['template']
-    print('\nTemplate Line')
-    print('-------------')
+    info = params['input']
+    print('\nInput Line')
+    print('----------')
     print('Coefficients:', info.a, info.b)
     print('Mean:', info.data.mean)
 
@@ -104,8 +123,8 @@ def main():
     print('Mean:', params['ydata'].mean)
     print('Noise Width:', params['noise_width'])
 
-    info = params['fit']
-    print('\nFitted Line')
+    info = params['output']
+    print('\nOutput Line')
     print('-----------')
     print('Coefficients:', info.a, info.b)
     print('Mean:', info.data.mean)
@@ -120,16 +139,25 @@ def main():
 
         ax = fig.add_subplot(1,1,1, xticks=[], yticks=[])
 
-        xdata = params['xdata']
-        ydata = params['ydata']
-        yTmpl = params['template'].data
-        yFit  = params['fit'].data
+        xdata = params[ 'xdata']
+        ydata = params[ 'ydata']
+        yIn   = params[ 'input'].data
+        yOut  = params['output'].data
+        rng   = kwargs[   'rng']
+        N     = args.steps
 
-        plots = ax.plot(xdata, ydata, 'k.', xdata, yTmpl, 'b', xdata, yFit, 'g', linewidth=1.0)
+        ax.plot(xdata, yIn, 'b', xdata, yOut, 'g', linewidth=1.0, alpha = 0.5)
 
-        plots[0].set_markersize(1)
-        plots[1].set_alpha(0.5)
-        plots[2].set_alpha(0.5)
+        drops = [int(round(N*rng.random(), 0)) for i in range(int(round((1.0-args.density)*N, 0)))]
+        drops.sort(reverse=True)
+
+        xdata, ydata = map(list, [xdata, ydata])
+
+        for i in drops:
+            del xdata[i]
+            del ydata[i]
+
+        ax.plot(xdata, ydata, 'k.', markersize=1.0)
 
         if args.outfile.lower().endswith('.svg'):
             from matplotlib.backends.backend_svg import FigureCanvas
