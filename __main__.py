@@ -58,7 +58,7 @@ def _validate_backend(s):
 def parse_args(argsIn=None):
     psr = argparse.ArgumentParser(description='Given a line and target r-squared, noisy data is generated and a line fit '
                                               'to them. A report is printed, and a plot-to-file feature is available.',
-                                  epilog='The relative error of the obtained r-squared with repect to the target is '
+                                  epilog='The relative error of the r-squared of the fit with repect to the target is '
                                          'included in the report. To decrease this error, set the target closer to one '
                                          'or increase the number of points.')
     psr.add_argument('coefficients', type=float, nargs=2, help='Coefficients a,b of input line y = a+b*x.')
