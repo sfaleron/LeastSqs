@@ -102,7 +102,9 @@ Support for Python's ``-m`` run-as-script switch is included::
 
   positional arguments:
     coefficients          Coefficients a,b of input line y = a+b*x.
-    rsq                   Target r-squared
+    rsq                   Target r-squared. The relative error of the fit's
+                          r-squared is reported; To decrease this error, set the
+                          target closer to one or increase the number of points.
     steps                 Number of points generated; defaults to 100.
 
   optional arguments:
