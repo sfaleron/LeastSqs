@@ -29,14 +29,9 @@ def noisy_fit(aIn, bIn, rsqIn, N, rng=None, seed=None):
 
     # variance of the mixed ydata is the sum of the variances of the input ydata and of the noise.
     # the variance of the noise is width^2/12.
-    # variance of the ymixed data is a tricky function of the input parameters that follows straightforwardly enough
-    # from a few of the equations at https://mathworld.wolfram.com/CorrelationCoefficient.html.
 
-    # FIXME: The math is flawed, but approximately not-so-bad. The b-value that belongs is the fitted line's, not the
-    # input parameter! I have renamed the variables to help prevent such confusions. The math and possibly input
-    # parameters will be revised to be more correct or at least state assumptions explicitly.
-    # It seems likely, for instance, that the mean of the ydata of the input line may be taken as the mean of all
-    # three sets of ydata, which is really only a good approximation for sufficiently large N.
+    # this math is approximate, the formulae really apply to the mixed data, not the input parameters here.
+    # empirically, the relative error in rsq is pretty small unless N and the target are both low.
 
     noise_width = (12*(bIn*bIn*xdata.ss/rsqIn/N - yTmpl.var))**.5
 

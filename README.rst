@@ -98,7 +98,7 @@ Support for Python's ``-m`` run-as-script switch is included::
                      coefficients coefficients rsq [steps]
 
   Given a line and target r-squared, noisy data is generated and a line fit to
-  it. A report is printed, and a plot-to-file feature is available.
+  them. A report is printed, and a plot-to-file feature is available.
 
   positional arguments:
     coefficients          Coefficients a,b of input line y = a+b*x.
@@ -119,6 +119,10 @@ Support for Python's ``-m`` run-as-script switch is included::
                           selected by the file extension.
     --density DENSITY     Noise density. Proportion of randomly distributed
                           noisy points to plot. Defaults to 1.0.
+
+  The relative error of the obtained r-squared with repect to the target is
+  included in the report. To decrease this error, set the target closer to one
+  or increase the number of points.
 
 ----
 
