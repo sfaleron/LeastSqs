@@ -122,10 +122,6 @@ Support for Python's ``-m`` run-as-script switch is included::
     --density DENSITY     Noise density. Proportion of randomly distributed
                           noisy points to plot. Defaults to 1.0.
 
-  The relative error of the r-squared of the fit with repect to the target is
-  included in the report. To decrease this error, set the target closer to one
-  or increase the number of points.
-
 ----
 
 See Also
